@@ -1,4 +1,4 @@
-Shader "Custom/SurfaceShader"
+Shader "Practice/CustomShader"
 {
     Properties
     {
