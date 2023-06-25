@@ -2,6 +2,11 @@ Shader "Practice/CustomShader"
 {
     Properties
     {
+		_Brightness ("change Brightness!!" , Range(0,1)) = 0.5
+        _TestFloat ("Test Float!!", Float) = 0.5
+        _TestColor ("Test Color!!", Color) = (1, 1, 1, 1)
+        _TestVector ("Test Vector!!", Vector) = (1, 1, 1, 1)
+        _TestTexture ("Test Texture!!", 2D) = "White" {}
         _Color ("Color", Color) = (1,1,1,1)
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
         _Glossiness ("Smoothness", Range(0,1)) = 0.5
