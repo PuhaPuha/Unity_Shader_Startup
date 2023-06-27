@@ -20,8 +20,8 @@ Shader "Custom/default"
 
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
-            fixed4 c = tex2D (_MainTex, IN.uv_MainTex);
-            o.Emission = float3(IN.uv_MainTex.r, IN.uv_MainTex.g, 0);
+            fixed4 c = tex2D (_MainTex, IN.uv_MainTex + 0.5);
+            o.Emission = c;
             o.Alpha = c.a;
         }
         ENDCG
