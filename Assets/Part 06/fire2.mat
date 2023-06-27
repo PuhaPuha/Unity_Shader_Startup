@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: fire
-  m_Shader: {fileID: 4800000, guid: 86dc16204847caf408ca770cbc5c8838, type: 3}
+  m_Name: fire2
+  m_Shader: {fileID: 4800000, guid: 9631552d20665c043913dafd006fe315, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -48,7 +48,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex2:
-        m_Texture: {fileID: 2800000, guid: 5af5244dd29fef2459c8c76cc0d10637, type: 3}
+        m_Texture: {fileID: 2800000, guid: 65b908585d4582149adc9de191ffb62f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
