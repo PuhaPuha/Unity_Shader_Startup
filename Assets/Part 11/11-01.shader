@@ -31,8 +31,8 @@ Shader "Custom/default"
 
         float4 LightingTest (SurfaceOutput s, float3 lightDir, float atten)
         {
-            float ndotl = saturate(dot(s.Normal, lightDir));
-            // float ndotl = dot(s.Normal, lightDir);
+            // float ndotl = saturate(dot(s.Normal, lightDir));
+            float ndotl = dot(s.Normal, lightDir) * 0.5 + 0.5;
             return ndotl;
         }
 
