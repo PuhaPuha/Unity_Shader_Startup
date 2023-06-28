@@ -31,9 +31,12 @@ Shader "Custom/default"
 
         float4 LightingTest (SurfaceOutput s, float3 lightDir, float atten)
         {
-            // float ndotl = saturate(dot(s.Normal, lightDir));
-            float ndotl = dot(s.Normal, lightDir) * 0.5 + 0.5;
-            return ndotl;
+            float ndotl = saturate(dot(s.Normal, lightDir));
+            // float ndotl = dot(s.Normal, lightDir) * 0.5 + 0.5;
+            float4 final;
+            final.rgb = ndotl * s.Albedo * _LightColor0.rgb * atten;
+            final.a = s.Alpha;
+            return final;
         }
 
         ENDCG
