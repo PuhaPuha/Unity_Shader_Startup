@@ -14,7 +14,7 @@ Shader "Custom/13-02"
         LOD 200
 
         CGPROGRAM
-        #pragma surface surf Test
+        #pragma surface surf Test noambient
 
         #pragma target 3.0
 
@@ -61,9 +61,13 @@ Shader "Custom/13-02"
             float invrim = 1-rim;
             rimColor = pow(invrim, 6) * float3(0.5, 0.5, 0.5);
 
+            //Fake Spec term
+            float3 SpecColor2;
+            SpecColor2 = pow(rim, 50) * float3(0.2,0.2,0.2) * s.Gloss;
+
             //final term
             float4 final;
-            final.rgb = DiffColor.rgb + SpecColor.rgb +rimColor.rgb;
+            final.rgb = DiffColor.rgb + SpecColor.rgb +rimColor.rgb + SpecColor2.rgb;
             final.a = s.Alpha;
             return final;
         }
