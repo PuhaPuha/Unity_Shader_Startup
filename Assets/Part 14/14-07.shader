@@ -29,10 +29,10 @@ Shader "Custom/14-07"
             o.Alpha = c.a;
         }
 
-        float4 Lightingwarp(SurfaceOutput s, float3 lightDir, float atten)
+        float4 Lightingwarp(SurfaceOutput s, float3 lightDir, float3 viewDir, float atten)
         {
             float ndotl = dot(s.Normal,lightDir)*0.5+0.5;
-            float4 ramp = tex2D(_RampTex, float2(ndotl, 0.5));
+            float4 ramp = tex2D(_RampTex, float2(viewDir.x, viewDir.y));
             return ramp;
         }
         ENDCG
