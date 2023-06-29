@@ -55,9 +55,15 @@ Shader "Custom/13-02"
             spec = pow(spec, _SpecPow);
             SpecColor = spec * _SpecCol.rgb * s.Gloss;
 
+            //Rim term
+            float3 rimColor;
+            float rim = abs(dot(viewDir, s.Normal));
+            float invrim = 1-rim;
+            rimColor = pow(invrim, 6) * float3(0.5, 0.5, 0.5);
+
             //final term
             float4 final;
-            final.rgb = DiffColor.rgb + SpecColor.rgb;
+            final.rgb = DiffColor.rgb + SpecColor.rgb +rimColor.rgb;
             final.a = s.Alpha;
             return final;
         }
