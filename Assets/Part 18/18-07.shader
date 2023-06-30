@@ -13,7 +13,7 @@ Shader "Custom/18-07"
         Tags { "RenderType"="Transparent" "Queue"="Transparent" }
 
         CGPROGRAM
-        #pragma surface surf WaterSpecular alpha:fade
+        #pragma surface surf WaterSpecular alpha:fade vertex:vert
 
         samplerCUBE _Cube;
         sampler2D _Bumpmap;
@@ -21,6 +21,15 @@ Shader "Custom/18-07"
         float _SPPower;
         float _SPMulti;
 
+        void vert(inout appdata_full v)
+        {
+            float movement;
+            movement = sin(abs(v.texcoord.x*2-1)*12+_Time.y) * 0.1;
+            movement += sin(abs(v.texcoord.y*2-1)*12+_Time.y) * 0.1;
+            v.vertex.y += movement/2;
+            // v.vertex.y += v.texcoord.x;
+        }
+        
         struct Input
         {
             float2 uv_Bumpmap;
