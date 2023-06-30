@@ -7,19 +7,24 @@ Shader "Custom/18-07"
         _SPColor("Specular Color", color) = (1,1,1,1)
         _SPPower("Specular Power", Range(50, 300)) = 150
         _SPMulti("Specular Multiply", Range(1,10)) = 3
+        _Refract("Refract Strength", Range(0,0.2)) = 0.1
     }
     SubShader
     {
         Tags { "RenderType"="Transparent" "Queue"="Transparent" }
+        
+        GrabPass{}
 
         CGPROGRAM
-        #pragma surface surf WaterSpecular alpha:fade vertex:vert
+        #pragma surface surf WaterSpecular vertex:vert
 
         samplerCUBE _Cube;
         sampler2D _Bumpmap;
+        sampler2D _GrabTexture;
         float4 _SPColor;
         float _SPPower;
         float _SPMulti;
+        float _Refract;
 
         void vert(inout appdata_full v)
         {
@@ -35,6 +40,7 @@ Shader "Custom/18-07"
             float2 uv_Bumpmap;
             float3 worldRefl;
             float3 viewDir;
+            float4 screenPos;
             INTERNAL_DATA
         };
 
@@ -45,12 +51,16 @@ Shader "Custom/18-07"
             o.Normal = (normal1 + normal2)/2;
             float3 refcolor = texCUBE(_Cube, WorldReflectionVector(IN, o.Normal));
 
+            //refraction term
+            float3 screenUV = IN.screenPos.rgb / IN.screenPos.a;
+            float3 refraction = tex2D(_GrabTexture, (screenUV.xy + o.Normal.xy*_Refract));
+
             //rim term
             float rim = saturate(dot(o.Normal, IN.viewDir));
             rim = pow(1-rim, 1.5);
-            o.Emission = refcolor * rim * 2;
-            o.Alpha = saturate(rim+0.5);
-            
+            o.Emission = (refcolor * rim + refraction) * 0.5;
+            // o.Alpha = saturate(rim+0.5);
+            o.Alpha = 1;
             // o.Emission = refcolor;
             // o.Alpha = 0.2;
         }
